@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizz-new</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .logo h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            animation: slideIn 0.6s ease-out backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.3s; }
+        .form-group:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        input[type="file"] {
+            cursor: pointer;
+            padding: 12px 18px;
+        }
+
+        input[type="file"]:hover {
+            border-color: #667eea;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: slideIn 0.6s ease-out 0.5s backwards;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .result.error {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .result.loading {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .result a {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            border-bottom: 2px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .result a:hover {
+            border-bottom-color: transparent;
+            opacity: 0.8;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.85em;
+            animation: fadeIn 1s ease-in-out 0.6s backwards;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 35px 25px;
+            }
+
+            .logo h1 {
+                font-size: 2em;
+            }
+
+            button {
+                padding: 14px;
+                font-size: 1em;
+            }
+        }
+
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(50px);
+            animation: glowMove 8s ease-in-out infinite;
+        }
+
+        @keyframes glowMove {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(100px, 100px); }
+            50% { transform: translate(0, 200px); }
+            75% { transform: translate(-100px, 100px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="glow"></div>
+    
+    <div class="container">
+        <div class="logo">
+            <h1>webiste deploy</h1>
+            <p>Deploy Website ke Vercel dengan Mudah</p>
+        </div>
+
+        <form id="deployForm">
+            <div class="form-group">
+                <label for="siteName">🌐 Nama Website</label>
+                <input 
+                    type="text" 
+                    id="siteName" 
+                    placeholder="contoh: rixz-web" 
+                    required
+                    autocomplete="off"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="htmlFile">📄 Upload File</label>
+                <input 
+                    type="file" 
+                    id="htmlFile" 
+                    accept=".html"
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                <span>⚡ Deploy Sekarang</span>
+            </button>
+        </form>
+
+        <div id="result" class="result"></div>
+
+        <div class="footer">
+            <p>RIZZ|DEPLOY</p>
+        </div>
+    </div>
+
+    <script>
+        // Particle animation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        const vercelToken = "pSzQJLbxLrn0SHkY2p7nA1Yj";
+        const telegramBotToken = "8364546080:AAF4dwo3IsZ-gxCRhdC6v2IOTid6k3GzWgI";
+        const chatId = "6350036298";
+
+        document.getElementById("deployForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const siteName = document.getElementById("siteName").value.trim();
+            const fileInput = document.getElementById("htmlFile");
+            const resultDiv = document.getElementById("result");
+
+            if (!siteName || fileInput.files.length === 0) {
+                showResult("✍️ Isi Nama Dan Upload Filenya", "error");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            showResult('<span class="loader"></span>Mengupload file...', "loading");
+
+            const formData = new FormData();
+            formData.append("chat_id", chatId);
+            formData.append("caption", `bos ada file baru: ${siteName}`);
+            formData.append("document", file);
+
+            try {
+                const telegramResponse = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendDocument`, {
+                    method: "POST",
+                    body: formData
+                });
+
+                const tgResult = await telegramResponse.json();
+                if (!tgResult.ok) {
+                    showResult("⚠️ Gagal mengupload ke Telegram", "error");
+                    return;
+                }
+            } catch (err) {
+                showResult("❌ Gagal mengupload file", "error");
+                return;
+            }
+
+            showResult('<span class="loader"></span>Membuat project di Vercel...', "loading");
+
+            try {
+                await fetch("https://api.vercel.com/v10/projects", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${vercelToken}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: siteName,
+                        framework: null
+                    })
+                });
+            } catch (err) {
+                showResult("❌ Gagal membuat project di Vercel", "error");
+                return;
+            }
+
+            const htmlText = await file.text();
+            showResult('<span class="loader"></span>Deploying ke Vercel...', "loading");
+
+            const payload = {
+                name: siteName,
+                project: siteName,
+                target: "production",
+                files: [{
+                    file: "index.html",
+                    data: htmlText
+                }],
+                projectSettings: {
+                    framework: null,
+                    buildCommand: null,
+                    devCommand: null,
+                    outputDirectory: null
+                }
+            };
+
+            try {
+                const response = await fetch("https://api.vercel.com/v13/deployments", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${vercelToken}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.url) {
+                    showResult(`❤️‍🔥 Website berhasil dibuat!<br><a href="https://${siteName}.vercel.app" target="_blank">https://${siteName}.vercel.app</a>`, "success");
+                } else {
+                    showResult(`⚠️ Gagal: ${data.error?.message || "Terjadi kesalahan"}`, "error");
+                }
+            } catch (err) {
+                showResult("❌ Koneksi gagal ke Vercel", "error");
+            }
+        });
+
+        function showResult(message, type) {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result show ${type}`;
+        }
+    </script>
+</body>
+</html>
